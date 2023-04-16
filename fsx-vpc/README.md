@@ -22,7 +22,9 @@ terraform apply \
     -var='s3upload_buckets=["miniwdl-bucket-ds"]' \
     -var='subnet_id=subnet-0b2ad3bbbe3652a00' \
     -var='security_group_id=sg-058deaa09fcdadc69' \
-    -var=create_spot_service_roles=false  # (your account probably has them by now)
+    -var='task_max_vcpus=2048' \
+    -var='lustre_GiB=4800' \
+    -var='create_spot_service_roles=false'  # (your account probably has them by now)
 ```
 
 The following *additional* [variables](variables.tf) are available:

@@ -90,12 +90,14 @@ resource "aws_security_group" "all" {
 resource "aws_fsx_lustre_file_system" "lustre" {
   subnet_ids                    = [var.subnet_id]
   security_group_ids            = [var.security_group_id]
-  deployment_type               = "SCRATCH_2"
+  deployment_type               = "PERSISTENT_2"
+  data_compression_type         = "LZ4"
+  per_unit_storage_throughput   = 1000
   storage_capacity              = var.lustre_GiB
   weekly_maintenance_start_time = var.lustre_weekly_maintenance_start_time
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 }
 
@@ -157,7 +159,8 @@ resource "aws_batch_compute_environment" "task" {
 
   compute_resources {
     type                = "SPOT"
-    instance_type       = ["m5d", "c5d", "r5d"]
+    #instance_type       = ["m5d", "c5d", "r5d"]
+    instance_type       = ["r5", "r6a"]
     allocation_strategy = "SPOT_CAPACITY_OPTIMIZED"
     max_vcpus           = var.task_max_vcpus
     subnets             = [var.subnet_id]
