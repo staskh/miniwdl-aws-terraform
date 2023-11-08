@@ -159,8 +159,8 @@ resource "aws_batch_compute_environment" "task" {
 
   compute_resources {
     type                = "SPOT"
-    #instance_type       = ["m5d", "c5d", "r5d"]
-    instance_type       = ["r5", "r6a"]
+    instance_type       = ["m5d", "c5d", "r5d", "r5", "r6a"]
+    #instance_type       = ["r5", "r6a"]
     allocation_strategy = "SPOT_CAPACITY_OPTIMIZED"
     max_vcpus           = var.task_max_vcpus
     subnets             = [var.subnet_id]
@@ -273,6 +273,7 @@ resource "aws_batch_job_queue" "workflow" {
   # infrastructure defaults from these tags.
   tags = merge({
     DefaultTaskQueue = aws_batch_job_queue.task.name
+    WorkflowEngineRoleArn = aws_iam_role.workflow.arn
     }, [var.enable_task_fallback ? { DefaultTaskQueueFallback = aws_batch_job_queue.task_fallback.name } : null]...
   )
 }
@@ -329,7 +330,7 @@ resource "aws_iam_role" "workflow" {
           {
             Effect   = "Allow",
             Action   = ["s3:PutObject"],
-            Resource = formatlist("arn:aws:s3:::%s/*", var.s3upload_buckets),
+            Resource = ["*"]  #formatlist("arn:aws:s3:::%s/*", var.s3upload_buckets),
           },
         ],
       })

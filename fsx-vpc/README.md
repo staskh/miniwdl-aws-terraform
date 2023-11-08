@@ -16,12 +16,12 @@ git clone https://github.com/miniwdl-ext/miniwdl-aws-terraform.git
 cd miniwdl-aws-terraform/fsx-vpc
 terraform init
 terraform apply \
-    -var='availability_zone=us-east-1d' \
+    -var='availability_zone=eu-west-1c' \
     -var='environment_tag=miniwdl-fsx' \
-    -var='owner_tag=me@example.com' \
+    -var='owner_tag=stas@pheno.ai' \
     -var='s3upload_buckets=["miniwdl-bucket-ds"]' \
-    -var='subnet_id=subnet-0b2ad3bbbe3652a00' \
-    -var='security_group_id=sg-058deaa09fcdadc69' \
+    -var='subnet_id=subnet-0477d22ddb3d43d63' \
+    -var='security_group_id=sg-0b14136d09b98d573' \
     -var='task_max_vcpus=2048' \
     -var='lustre_GiB=1200' \
     -var='create_spot_service_roles=false'  # (your account probably has them by now)

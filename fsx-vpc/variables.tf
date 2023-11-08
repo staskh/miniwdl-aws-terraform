@@ -1,5 +1,6 @@
 variable "owner_tag" {
   description = "Owner tag applied to all resources, e.g. your username/email"
+  default     = "stas@pheno.ai"
 }
 
 variable "environment_tag" {
@@ -48,7 +49,7 @@ variable "workflow_max_vcpus" {
 variable "enable_task_fallback" {
   description = "Enable fallback to EC2 On Demand compute environment after a task experiences runtime.preemptible spot interruptions"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "subnet_id" {
