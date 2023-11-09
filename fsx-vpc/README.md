@@ -39,6 +39,8 @@ The following *additional* [variables](variables.tf) are available:
 
 Then use the `--no-efs` mode of `miniwdl-aws-submit`,
 
+IMPORTANT: if WDL dockers run not under "root" user, do ```sudo chmod 777 /mnt/net``` on the EC2 instance
+
 ```
 miniwdl-aws-submit --self-test --follow --workflow-queue miniwdl-fsx-workflow --no-efs
 ```
